@@ -1,5 +1,5 @@
 <template>
-  <ChildrenComponent v-bind="attributes" v-dynamic-events="knownEvents" />
+  <ChildrenComponent v-bind="attributes" v-on="$listeners" />
 </template>
 
 <script>
@@ -7,11 +7,6 @@ import ChildrenComponent from './ChildrenComponent';
 import { mapState } from 'vuex';
 
 export default {
-  data() {
-    return {
-      knownEvents: ['click'],
-    }
-  },
   components: {
     ChildrenComponent,
   },
@@ -19,11 +14,6 @@ export default {
     ...mapState(['todos']),
     attributes() {
       return {...this.$attrs, todos: this.todos};
-    },
-  },
-  methods: {
-    proxyEvent(eventName, eventData) {
-      this.$emit(eventName, eventData)
     },
   },
 }
